@@ -1,0 +1,42 @@
+#include <stdio.h>
+#include <string.h>
+#include "mysql.h"
+
+
+const char* global_HostName = "localhost";
+const char* global_UsrName = "root";
+const char* global_Password = "199694";
+const char* global_DBName = "test";
+int global_port = 18184;
+
+int createConnector(MYSQL ConnectorCore) {
+	mysql_init(&ConnectorCore);
+	
+	if (&ConnectorCore == NULL)
+	{
+		printf("error----------create");
+		return 0;
+	}
+	else
+		return 1;
+}
+int initConnector(MYSQL ConnectorCore)
+{
+	mysql_real_connect(&ConnectorCore, global_HostName, global_UsrName, global_Password, global_DBName, global_port, NULL, 0);
+	if (&ConnectorCore == NULL)
+	{
+		printf("error--------------init");
+		return 0;
+	}
+	else
+		return 1;
+}
+
+int main(void)
+{
+	MYSQL ConnectorCore;
+	createConnector(ConnectorCore);
+	printf("ok\n");	
+	initConnector(ConnectorCore);
+	printf("ok");
+}
